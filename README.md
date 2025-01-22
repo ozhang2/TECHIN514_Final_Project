@@ -15,4 +15,12 @@ Stepper motor-driven gauge needle and lights the LED when the temperature reache
 ![Alt text](sketch2.JPG)
 
 # Devices communicate with each other and a detailed diagram 
+ESP32 collects raw data of temperature from BMP280, which communicates measurements to the ESP32 via an I²C (or SPI) interface. The ESP32 calculates the corresponding needle position based on the measured temperature, giving the user an intuitive visual effect.
+
+How devices communicate:
+![Alt text](IMG_1487.JPG)
+How it works:
+![Alt text](IMG_1486.JPG)
+
+
 
