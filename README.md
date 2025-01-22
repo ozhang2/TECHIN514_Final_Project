@@ -7,5 +7,6 @@ General Sketch:
 
 # Sensor Device
 Sensing Device: BME 280 
-![Alt text](IMG_1484.JPG) 
-![Alt text](IMG_1483 2.JPG) 
+![Alt text](IMG_1484.JPG) ![Alt text](IMG_1485.JPG) 
+
+
