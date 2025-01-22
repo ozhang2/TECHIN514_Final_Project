@@ -1,6 +1,9 @@
 # TECHIN514_Final_Project
 
 # Cooking Oil Temperature Detector
-This wearable temperature detector is designed to measure oil temperature during cooking. For example, controlling the oil temperature is crucial when frying a steak. By positioning the sensor near the pan, it provides real-time feedback on the oil temperature. When temperature reaches ~180°C, LED lights on to remind it’s time to put the steak in.
-
+This is a wearable oil temperature detector for real-time monitoring of oil temperature while cooking. When the oil temperature reaches about 180°C, the LED lights up to remind you that you can cook (for example, frying a steak). The device uses a sensor (BME280) to detect the temperature and displays the oil temperature through the stepper motor pointer.
+General Sketch:
 ![Alt text](Sketch1.png)
+
+# Sensor Device
+Sensing Device: BME 280 
