@@ -3,7 +3,7 @@
 #include <BLEServer.h>
 #include <BLEUtils.h>
 #include <BLE2902.h>
-#include <Adafruit_BME280.h> // BME280 Library
+#include <Adafruit_BME280.h> // BME280 library
 
 // Create BLE Server instance
 BLEServer* pServer = NULL;
@@ -22,6 +22,7 @@ Adafruit_BME280 bme;
 #define SERVICE_UUID        "c36bda34-c052-4045-9635-7f42a81b0deb"
 #define CHARACTERISTIC_UUID "97a128ba-e071-4602-8d34-03c67a925c72"
 
+// BLE Server Callbacks
 class MyServerCallbacks : public BLEServerCallbacks {
    void onConnect(BLEServer* pServer) {
        deviceConnected = true;
@@ -36,9 +37,10 @@ void setup() {
    Serial.begin(115200);
    Serial.println("Starting BLE Server...");
 
+   // Initialize BME280 sensor
    if (!bme.begin(0x76)) { // BME280 default I2C address is 0x76
        Serial.println("Could not find a valid BME280 sensor, check wiring!");
-       while (1);  // Halt the program until the issue is resolved
+       while (1);  // Halt the program, wait for user correction
    }
 
    BLEDevice::init("BME280_Server");
@@ -56,6 +58,7 @@ void setup() {
 
    pService->start();
 
+   // BLE Advertising Settings
    BLEAdvertising *pAdvertising = BLEDevice::getAdvertising();
    pAdvertising->addServiceUUID(SERVICE_UUID);
    pAdvertising->setScanResponse(true);
@@ -72,9 +75,11 @@ void loop() {
        if (currentMillis - previousMillis >= interval) {
            previousMillis = currentMillis;
 
+           // Read BME280 temperature
            float temperature = bme.readTemperature();
 
-           String tempStr = String(temperature, 2) + " C"; // Keep two decimal points
+           // Format and send temperature data
+           String tempStr = String(temperature, 2) + " C"; // Keep two decimal places
            pCharacteristic->setValue(tempStr.c_str());
            pCharacteristic->notify();
 
@@ -83,6 +88,7 @@ void loop() {
        }
    }
 
+   // Handle disconnection and re-advertising
    if (!deviceConnected && oldDeviceConnected) {
        delay(500);  // Wait briefly
        pServer->startAdvertising(); 
@@ -94,6 +100,5 @@ void loop() {
        oldDeviceConnected = deviceConnected;
    }
 
-   delay(1000); 
+   delay(1000);  // Delay
 }
-
